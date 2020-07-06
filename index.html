@@ -11,6 +11,29 @@
         body {
             margin: 0;
         }
+
+        /* Custom mapbox styling */
+        .mapboxgl-popup-close-button {
+            font-size: 18px;
+        }
+
+        .mapboxgl-popup-content {
+            font-size: 12px;
+            color: black;
+            border-radius: 6px;
+            font:inherit;
+            padding:6px 10px 10px;
+        }
+
+        .mapboxgl-popup-content h3 {
+            margin: 0;
+            margin:0 12px 0 0;
+
+        }
+
+        .mapboxgl-popup-content p {
+            margin: 2px;
+        }
     </style>
 </head>
 <body>
@@ -21,7 +44,8 @@
             container: 'map',
             style: 'mapbox://styles/paveldolni/ckc95ivea0zgj1inygv8orn2m',
             center: [14.425774, 50.070468], // starting position [lng, lat]
-                zoom: 5
+            zoom: 5,
+            interactive:false
         });
 
         map.scrollZoom.disable();
@@ -39,7 +63,7 @@
 
         var popup = new mapboxgl.Popup({ offset: [0, -15] })
             .setLngLat(feature.geometry.coordinates)
-            .setHTML('<H1>' + feature.properties.title + '</H1><p>' + feature.properties.description + '</p>')
+            .setHTML('<h3>' + feature.properties.title + '</h3><p>' + feature.properties.description + '</p>')
             .addTo(map);
         });
 
