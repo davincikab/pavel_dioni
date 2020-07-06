@@ -45,11 +45,10 @@
             style: 'mapbox://styles/paveldolni/ckc95ivea0zgj1inygv8orn2m',
             center: [14.425774, 50.070468], // starting position [lng, lat]
             zoom: 5,
-            interactive:false
+            // interactive:false
         });
 
-        map.scrollZoom.disable();
-
+    
         map.on('click', function(e) {
         var features = map.queryRenderedFeatures(e.point, {
             layers: ['sflow_location_geojson'] // replace this with the name of the layer
@@ -74,6 +73,31 @@
         map.on('mouseleave', 'sflow_location_geojson', function(e){
             map.getCanvas().style.cursor = '';
         });
+
+        const getDeviceType = () => {
+            const ua = navigator.userAgent;
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+                return "tablet";
+            }
+            if (
+                /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+                ua
+                )
+            ) {
+                // add or disable some functionalities
+                map.scrollZoom.enable();
+                map.dragPan.disable();
+
+                return "mobile";
+            }
+
+            map.scrollZoom.disable();
+            map.dragPan.disable();
+
+            return "desktop";
+        };
+
+        getDeviceType();
 
     </script> 
 </body>
